@@ -1,19 +1,19 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .v1.product.views import (
-    ProductModelViewSet,
-    CategoryModelViewSet
-)
+# from .v1.product.views import (
+#     ProductModelViewSet,
+#     CategoryModelViewSet
+# )
 
-from .v1.cart.views import (
-    CartModelViewSet,
-)
+# from .v1.cart.views import (
+#     CartModelViewSet,
+# )
 
 from api.auth.views import (
     UserRegisterView,
-    ManagerRegisterView,
-    UserAuthenticateView
+    # ManagerRegisterView,
+    # UserAuthenticateView
 )
 
 router = DefaultRouter(trailing_slash=False)
@@ -25,7 +25,7 @@ urlpatterns.extend(
 
         # Registration
         path("user-register/", UserRegisterView.as_view(), name="user-register"),
-        path("manager-register/", ManagerRegisterView.as_view(), name="manager-register"),
+        # path("manager-register/", ManagerRegisterView.as_view(), name="manager-register"),
 
         # Login
         path("login/", UserAuthenticateView.as_view({"post": "login"}), name="login"),
