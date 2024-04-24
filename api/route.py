@@ -12,8 +12,7 @@ from rest_framework.routers import DefaultRouter
 
 from api.auth.views import (
     UserRegisterView,
-    # ManagerRegisterView,
-    # UserAuthenticateView
+    UserAuthenticateView
 )
 
 router = DefaultRouter(trailing_slash=False)

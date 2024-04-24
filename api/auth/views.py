@@ -17,7 +17,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 from apps.account.models import CustomUser
-from .serializers import UserSerializer
+from .serializers import CustomUserSerializer
 
 
 class UserRegisterView(APIView):
@@ -25,11 +25,19 @@ class UserRegisterView(APIView):
     permission_classes = [permissions.AllowAny,]
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            email = serializer.validated_data['email']
+            if CustomUser.objects.filter(email=email).exists():
+                error_message = "User with this email already exists."
+                return Response({"error": error_message}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                validated_data = serializer.validated_data
+                validated_data.pop('password2')
+                CustomUser.objects.create_user(**validated_data)
+                success_message = "User has been successfully created."
             return Response(
-                serializer.data,
+                {'message': success_message},
                 status=status.HTTP_201_CREATED
             )
         return Response(
