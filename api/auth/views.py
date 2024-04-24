@@ -54,11 +54,7 @@ class UserAuthenticateView(viewsets.ViewSet):
         password = request.data.get('password', None)
         try:
             user = CustomUser.objects.get(email=email)
-            user_role = user.role
         except CustomUser.DoesNotExist:
-            raise AuthenticationFailed("Такого пользователя не существует")
-
-        if user is None or user_role is None:
             raise AuthenticationFailed("Такого пользователя не существует")
 
         if not user.check_password(password):

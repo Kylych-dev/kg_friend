@@ -27,8 +27,8 @@ urlpatterns.extend(
         # path("manager-register/", ManagerRegisterView.as_view(), name="manager-register"),
 
         # Login
-        path("login/", UserAuthenticateView.as_view({"post": "login"}), name="login"),
-        path("logout/", UserAuthenticateView.as_view({"post": "logout"}), name="logout"),
+        path("user-login/", UserAuthenticateView.as_view({"post": "login"}), name="login"),
+        path("user-logout/", UserAuthenticateView.as_view({"post": "logout"}), name="logout"),
 
         # Products
         # path("products/", ProductModelViewSet.as_view({"get": "products_list"}), name="products-list"),
