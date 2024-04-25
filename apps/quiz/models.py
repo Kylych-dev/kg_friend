@@ -32,6 +32,9 @@ class Question(BaseModel):
         verbose_name = 'question'
         verbose_name_plural = 'questions'
 
+    def __str__(self):
+        return self.question
+
 
 class Answer(BaseModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
@@ -41,6 +44,9 @@ class Answer(BaseModel):
     class Meta:
         verbose_name = 'answer'
         verbose_name_plural = 'answers'
+
+    def __str__(self):
+        return self.answer
 
 
 class UserTestResult(models.Model):
@@ -53,6 +59,9 @@ class UserTestResult(models.Model):
     class Meta:
         verbose_name = 'user test result'
         verbose_name_plural = 'user test results'
+
+    def __str__(self):
+        return self.user
 
 
 
