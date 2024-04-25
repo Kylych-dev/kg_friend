@@ -1,18 +1,17 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .v1.product.views import (
-    ProductModelViewSet,
-    CategoryModelViewSet
-)
+# from .v1.product.views import (
+#     ProductModelViewSet,
+#     CategoryModelViewSet
+# )
 
-from .v1.cart.views import (
-    CartModelViewSet,
-)
+# from .v1.cart.views import (
+#     CartModelViewSet,
+# )
 
 from api.auth.views import (
     UserRegisterView,
-    ManagerRegisterView,
     UserAuthenticateView
 )
 
@@ -25,11 +24,11 @@ urlpatterns.extend(
 
         # Registration
         path("user-register/", UserRegisterView.as_view(), name="user-register"),
-        path("manager-register/", ManagerRegisterView.as_view(), name="manager-register"),
+        # path("manager-register/", ManagerRegisterView.as_view(), name="manager-register"),
 
         # Login
-        path("login/", UserAuthenticateView.as_view({"post": "login"}), name="login"),
-        path("logout/", UserAuthenticateView.as_view({"post": "logout"}), name="logout"),
+        path("user-login/", UserAuthenticateView.as_view({"post": "login"}), name="login"),
+        path("user-logout/", UserAuthenticateView.as_view({"post": "logout"}), name="logout"),
 
         # Products
         # path("products/", ProductModelViewSet.as_view({"get": "products_list"}), name="products-list"),

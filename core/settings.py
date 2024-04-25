@@ -25,10 +25,8 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # apps
-    'apps.product.apps.ProductConfig',
-    'apps.cart.apps.CartConfig',
     'apps.account.apps.AccountConfig',
-    'apps.payment.apps.PaymentConfig'
+    'apps.quiz.apps.QuizConfig',
 
 ]
 

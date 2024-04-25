@@ -3,8 +3,8 @@ from utils.phone_normalize import normalize_phone_number
 from django.contrib.auth.password_validation import validate_password
 from apps.account.models import (
     CustomUser,
-    UserProfile,
-    ManagerProfile
+    # UserProfile,
+    # ManagerProfile
 )
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -37,51 +37,50 @@ class CustomUserSerializer(serializers.ModelSerializer):
             )
         return attrs
 
-
-class UserSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer()
-
-    class Meta:
-        model = UserProfile
-        # fields = '__all__'
-        fields = [
-            # 'id',
-            'user'
-        ]
-
-    def create(self, validated_data):
-        print(validated_data, '-------- validate_data ----------')
-
-        user_data = validated_data.pop('user')
-        print(user_data, '------- user_data ------')
-        user_data.pop('password2')
-        role = user_data.pop('role')
-
-        user = CustomUser.objects.create_user(role=role, **user_data)
-        manager = UserProfile.objects.create(user=user, **validated_data)
-        return manager
-
-
-class ManagerSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer()
-
-    class Meta:
-        model = ManagerProfile
-        fields = '__all__'
-        # fields = [
-        #     # 'id',
-        #     'user'
-        #     'phone_number',
-        # ]
-
-    def create(self, validated_data):
-        print(validated_data, '-------- validate_data ----------')
-
-        user_data = validated_data.pop('user')
-        print(user_data, '------- user_data ------')
-        user_data.pop('password2')
-        role = user_data.pop('role')
-
-        user = CustomUser.objects.create_user(role=role, **user_data)
-        manager = ManagerProfile.objects.create(user=user, **validated_data)
-        return manager
+# class UserSerializer(serializers.ModelSerializer):
+#     user = CustomUserSerializer()
+#
+#     class Meta:
+#         model = UserProfile
+#         # fields = '__all__'
+#         fields = [
+#             # 'id',
+#             'user'
+#         ]
+#
+#     def create(self, validated_data):
+#         print(validated_data, '-------- validate_data ----------')
+#
+#         user_data = validated_data.pop('user')
+#         print(user_data, '------- user_data ------')
+#         user_data.pop('password2')
+#         role = user_data.pop('role')
+#
+#         user = CustomUser.objects.create_user(role=role, **user_data)
+#         manager = UserProfile.objects.create(user=user, **validated_data)
+#         return manager
+#
+#
+# class ManagerSerializer(serializers.ModelSerializer):
+#     user = CustomUserSerializer()
+#
+#     class Meta:
+#         model = ManagerProfile
+#         fields = '__all__'
+#         # fields = [
+#         #     # 'id',
+#         #     'user'
+#         #     'phone_number',
+#         # ]
+#
+#     def create(self, validated_data):
+#         print(validated_data, '-------- validate_data ----------')
+#
+#         user_data = validated_data.pop('user')
+#         print(user_data, '------- user_data ------')
+#         user_data.pop('password2')
+#         role = user_data.pop('role')
+#
+#         user = CustomUser.objects.create_user(role=role, **user_data)
+#         manager = ManagerProfile.objects.create(user=user, **validated_data)
+#         return manager
