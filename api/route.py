@@ -1,10 +1,11 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-# from .v1.product.views import (
-#     ProductModelViewSet,
-#     CategoryModelViewSet
-# )
+from api.v1.quiz.views import (
+    CategoryListView,
+    # SubmitAnswerView
+    StartQuizApiView
+)
 
 # from .v1.cart.views import (
 #     CartModelViewSet,
@@ -30,10 +31,13 @@ urlpatterns.extend(
         path("user-login/", UserAuthenticateView.as_view({"post": "login"}), name="login"),
         path("user-logout/", UserAuthenticateView.as_view({"post": "logout"}), name="logout"),
 
-        # Products
-        # path("products/", ProductModelViewSet.as_view({"get": "products_list"}), name="products-list"),
+        # Quiz
+        path("category-list/", CategoryListView.as_view(), name="category-list"),
+        path("submit-test/<int:pk>/", StartQuizApiView.as_view(), name="category-list"),
+
+        # path("category-list/", CategoryListView.as_view({"get": "products_list"}), name="products-list"),
         # path("products-detail/<slug:slug>/", ProductModelViewSet.as_view({"get": "product_detail"}), name="products-detail"),
-        #
+
         # # Cart
         # path("cart-list/", CartModelViewSet.as_view({"get": "cart_list"}), name="cart"),
         # path("cart-add/", CartModelViewSet.as_view({"post": "cart_add"}), name="cart-add"),

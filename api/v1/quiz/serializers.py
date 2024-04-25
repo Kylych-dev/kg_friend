@@ -7,22 +7,28 @@ from apps.quiz.models import (
 )
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
-
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = '__all__'
-
-
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = '__all__'
+        fields = ['question', 'answer']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['category', 'questions']
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    answer = AnswerSerializer(many=True, read_only=True)
+    category = CategorySerializer(read_only=True)
+    class Meta:
+        model = Question
+        fields = [
+            'question',
+            'category',
+            'answer'
+        ]
 
 
 class UserTestResultSerializer(serializers.ModelSerializer):
