@@ -38,4 +38,21 @@ class CustomJsonFormatter(logging.Formatter):
         return logger
 
 
-logger = CustomJsonFormatter.run()
+def log_warning(view, ex=None):
+    CustomJsonFormatter.run().warning(
+        f"Продукт не найден",
+        extra={
+            "Exception": f"{ex}",
+            "Class": f"{view.__class__.__name__}.{view.action}",
+        }
+    )
+
+
+def log_error(view, ex=None):
+    CustomJsonFormatter.run().error(
+        f"Ошибка при обработке запроса",
+        extra={
+            "Exception": f"{ex}",
+            "Class": f"{view.__class__.__name__}.{view.action}",
+        }
+    )
