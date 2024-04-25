@@ -1,10 +1,11 @@
 from django.db import models
 from ..account.models import CustomUser
 import uuid
+from django.core.exceptions import ValidationError
 
 
 class BaseModel(models.Model):
-    uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -33,7 +34,15 @@ class Question(BaseModel):
         verbose_name_plural = 'questions'
 
     def __str__(self):
-        return self.question
+        return f'--- {self.question} --- category: {self.category}'
+
+    def clean(self):
+        super().clean()
+        correct_count = self.answers.filter(is_correct=True).count()
+        if correct_count == 0:
+            raise ValidationError("At least one answer must be marked as correct.")
+        if correct_count == len(self.answers.all()):
+            raise ValidationError("Not all answers can be correct.")
 
 
 class Answer(BaseModel):
@@ -48,10 +57,19 @@ class Answer(BaseModel):
     def __str__(self):
         return self.answer
 
+    def clean(self):
+        super().clean()
+        correct_count = self.question.answers.filter(is_correct=True).count()
+        if correct_count == 0:
+            raise ValidationError("At least one answer must be marked as correct.")
+        if correct_count == len(self.question.answers.all()):
+            raise ValidationError("Not all answers can be correct.")
+
 
 class UserTestResult(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='test_result')
-    test = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='user_result')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category_result')
+
     correct_answers = models.PositiveIntegerField(default=0)
     total_questions = models.PositiveIntegerField(default=0)
     percent_correct = models.FloatField(default=0)
@@ -61,7 +79,7 @@ class UserTestResult(models.Model):
         verbose_name_plural = 'user test results'
 
     def __str__(self):
-        return self.user
+        return str(self.user.username)
 
 
 

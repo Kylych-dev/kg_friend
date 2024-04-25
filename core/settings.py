@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-0f9p@tms&^pv%cx&(p&hjufdm1nkyb75+^7$q-^k=@0m&v4bjz
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -105,12 +105,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        "rest_framework.authentication.SessionAuthentication",
+        # "rest_framework.authentication.SessionAuthentication",
     ],
     'DEFAULT_FILTER_BACKENDS': (
         # 'django_filters.rest_framework.DjangoFilterBackend',
     ),
-
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE': 10,
 }
+APPEND_SLASH = True
+if DEBUG:
+    from .dev_settings import *
