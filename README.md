@@ -91,12 +91,12 @@ http://127.0.0.1:8000/admin/
 ├── **<u>api</u>** <br> 
 │   ├── **<u>auth</u>** <br> 
 │   │   ├── serializers.py <br> 
-│   │   └── views.py <br> 
-│   ├── route.py <br> 
+│   │   └── views.py <br>
 │   └── **<u>v1</u>** <br> 
-│       └── quiz <br> 
-│           ├── serializers.py <br> 
-│           └── views.py <br> 
+│   │   └── **<u>quiz</u>** <br> 
+│   │      ├── serializers.py <br> 
+│   │      └── views.py <br>
+│    ├── route.py <br> 
 ├── **<u>apps</u>** <br> 
 │   ├── **<u>account</u>** <br> 
 │   │   ├── admin.py <br>
@@ -110,4 +110,15 @@ http://127.0.0.1:8000/admin/
 │   ├── asgi.py <br> 
 │   ├── ... <br>
 │   └── yasg.py <br> 
+
+## Contributing
+
+telegram: **`@mirbekov0909`** <br>
+<br>
+
+email: **`tteest624@gmail.com`** <br>
+<br>
+
+email: **`mirbekov1kylych@gmail.com`**
+
 
